@@ -50,12 +50,6 @@ static void _open_usage(void)
 
 int _ccnl_open(int argc, char **argv)
 {
-    /* check if already running */
-    if (started) {
-        puts("Already opened an interface for CCN!");
-        return -1;
-    }
-
     /* check if parameter is given */
     if (argc != 2) {
         _open_usage();
@@ -69,7 +63,8 @@ int _ccnl_open(int argc, char **argv)
         return -1;
     }
 
-    ccnl_start();
+    if(!started)
+      ccnl_start();
 
     /* set the relay's PID, configure the interface to interface to use CCN
      * nettype */
@@ -139,6 +134,10 @@ int _ccnl_content(int argc, char **argv)
     struct ccnl_content_s *c = 0;
     struct ccnl_pkt_s *pk = ccnl_ndntlv_bytes2pkt(typ, olddata, &data, &arg_len);
     c = ccnl_content_new(&ccnl_relay, &pk);
+
+    /* Remove the following line later */
+    ccnl_relay.max_cache_entries = 10;
+
     ccnl_content_add2cache(&ccnl_relay, c);
     c->flags |= CCNL_CONTENT_FLAGS_STATIC;
 
@@ -148,9 +147,9 @@ int _ccnl_content(int argc, char **argv)
 static struct ccnl_face_s *_intern_face_get(char *addr_str)
 {
     /* initialize address with 0xFF for broadcast */
-    size_t addr_len = MAX_ADDR_LEN;
-    uint8_t relay_addr[MAX_ADDR_LEN];
-    memset(relay_addr, UINT8_MAX, MAX_ADDR_LEN);
+    size_t addr_len = (strlen(addr_str) + 1) / 3;
+    uint8_t relay_addr[addr_len];
+    memset(relay_addr, UINT8_MAX, addr_len);
 
     addr_len = gnrc_netif_addr_from_str(relay_addr, sizeof(relay_addr), addr_str);
     if (addr_len == 0) {
@@ -165,7 +164,11 @@ static struct ccnl_face_s *_intern_face_get(char *addr_str)
     sun.linklayer.sll_protocol = htons(ETHERTYPE_NDN);
 
     /* TODO: set correct interface instead of always 0 */
-    struct ccnl_face_s *fibface = ccnl_get_face_or_create(&ccnl_relay, 0, &sun.sa, sizeof(sun.linklayer));
+    struct ccnl_face_s *fibface;
+    if(addr_len == 8)
+    	fibface = ccnl_get_face_or_create(&ccnl_relay, 3, &sun.sa, sizeof(sun.linklayer));
+    else
+    	fibface = ccnl_get_face_or_create(&ccnl_relay, 4, &sun.sa, sizeof(sun.linklayer));
 
     return fibface;
 }
