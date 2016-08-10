@@ -15,6 +15,7 @@ int main(void)
 {
 	printf("Hello World! \n");
 	ma_abe_example();
+	cp_abe_example();
 	printf("Success!!\n");
     return 0;
 }
