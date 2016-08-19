@@ -15,6 +15,7 @@ export RELIC_CONFIG_FLAGS=-DALLOC=AUTO -DFP_PRIME=256 \
 USEPKG += relic
 USEPKG += abe_relic
 
+USEMODULE += xtimer
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the
 # development process:
