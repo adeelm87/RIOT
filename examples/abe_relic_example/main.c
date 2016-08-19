@@ -30,8 +30,8 @@ int cp_encrypt_append_time(uint8_t *out, int *out_len, uint8_t *in,
 
 	xtimer_t xtimer;
 	uint32_t start, end, elapsed_ms;
-	int err_code = 0;
-	uint8_t enc_key[16], IV = {0};
+	int err = 0;
+	uint8_t enc_key[16], IV[16] = {0};
 	ciphertext_WatersCP ct;
 
 	start = xtimer_now();
