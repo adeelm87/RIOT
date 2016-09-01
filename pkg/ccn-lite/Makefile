@@ -1,6 +1,10 @@
 PKG_NAME=ccn-lite
 PKG_URL=ssh://gitolite@forge.ericsson.net/abe-icn/ccn-lite.git
-PKG_VERSION=63f7534417e88e3824589fa5d0fc6fa444823f8c
+<<<<<<< HEAD
+PKG_VERSION=9b2d0253466adae2c8288a6fa0a8f0fa0a9b096b
+=======
+PKG_VERSION=421451196b06de8f9bded57f2ba183ffd8fad892
+>>>>>>> ccn-gw-eth-802154-noip
 
 .PHONY: all
 
