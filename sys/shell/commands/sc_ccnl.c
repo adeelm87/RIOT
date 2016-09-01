@@ -163,14 +163,14 @@ static struct ccnl_face_s *_intern_face_get(char *addr_str)
     sun.linklayer.sll_halen = addr_len;
     sun.linklayer.sll_protocol = htons(ETHERTYPE_NDN);
 
-    /* TODO: set correct interface instead of always 0 */
-    struct ccnl_face_s *fibface;
-    if(addr_len == 8)
-    	fibface = ccnl_get_face_or_create(&ccnl_relay, 3, &sun.sa, sizeof(sun.linklayer));
-    else
-    	fibface = ccnl_get_face_or_create(&ccnl_relay, 4, &sun.sa, sizeof(sun.linklayer));
-
-    return fibface;
+    int i;
+	uint16_t devType;
+    for(i = 0; i < ccnl_relay.ifcount; i++) {
+    	gnrc_netapi_get(ccnl_relay.ifs[i].if_pid, NETOPT_DEVICE_TYPE, 0, &devType, sizeof(devType));
+    	if( (addr_len == 8 && devType == NETDEV2_TYPE_IEEE802154) || (addr_len == 6 && devType == NETDEV2_TYPE_ETHERNET) )
+    		break;
+    }
+    return ccnl_get_face_or_create(&ccnl_relay, ccnl_relay.ifs[i].if_pid, &sun.sa, sizeof(sun.linklayer));
 }
 
 static int _intern_fib_add(char *pfx, char *addr_str)
