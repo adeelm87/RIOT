@@ -1,4 +1,4 @@
-APPLICATION = ccn-lite-gw
+APPLICATION = ccn-lite-enddev
 
 # If no BOARD is found in the environment, use this default:
 BOARD ?= native
@@ -15,6 +15,7 @@ CFLAGS += -DCCNL_UAPI_H_
 CFLAGS += -DUSE_SUITE_NDNTLV
 CFLAGS += -DNEEDS_PREFIX_MATCHING
 CFLAGS += -DNEEDS_PACKET_CRAFTING
+CFLAGS += -DSENSOR_DEV
 
 # Change this to 0 show compiler invocation lines by default:
 QUIET ?= 1
@@ -29,8 +30,7 @@ USEMODULE += auto_init_gnrc_netif
 
 GNRC_NETIF_NUMOF := 1
 USEMODULE += gnrc_netdev2
-USEMODULE += ethos
-CFLAGS += '-DETHOS_UART=UART_DEV(0)' -DETHOS_BAUDRATE=115200 -DUSE_ETHOS_FOR_STDIO
+USEMODULE += at86rf233
 
 USEMODULE += timex
 USEMODULE += xtimer
