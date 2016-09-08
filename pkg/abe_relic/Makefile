@@ -1,6 +1,6 @@
 PKG_NAME=abe_relic
 PKG_URL=ssh://gitolite@forge.ericsson.net/abe-icn/abe_relic.git
-PKG_VERSION=23e69df6f8b44a2d0dc5d303625a304e07e1e891
+PKG_VERSION=53b3b014d620f4600df9b151d926fba9427b5532
 
 .PHONY: all
 
