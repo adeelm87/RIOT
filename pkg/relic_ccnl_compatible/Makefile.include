@@ -1,0 +1,1 @@
+INCLUDES += -I$(BINDIRBASE)/pkg/$(BOARD)/relic_ccnl_compatible/include

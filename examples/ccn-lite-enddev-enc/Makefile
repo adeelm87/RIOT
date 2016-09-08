@@ -25,7 +25,7 @@ export RELIC_CONFIG_FLAGS=-DALLOC=AUTO -DFP_PRIME=256 \
 -DWITH="DV;BN;MD;PC;EP;FP;EPX;PP;FPX;BC" -DOPSYS=NONE -DCOLOR=OFF -DWORD=32 
 
 # Make sure to put relic first
-USEPKG += relic
+USEPKG += relic_ccnl_compatible
 USEPKG += abe_relic
 
 USEMODULE += ps
