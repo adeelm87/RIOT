@@ -25,6 +25,12 @@
 #include "shell.h"
 #include "ccn-lite-riot.h"
 
+/*
+ * sc_ccnl.c forward declarations
+ */
+int _ccnl_open(int argc, char **argv);
+int _ccnl_fib(int argc, char **argv);
+
 /* main thread's message queue */
 #define MAIN_QUEUE_SIZE     (8)
 static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
@@ -43,6 +49,20 @@ int main(void)
     printf("Testing printf!!\n");
 
     ccnl_core_init();
+
+    /*
+     * Untidy code block, fix later.
+     */
+    char ccn_open_cmd[] = "ccnl_open";
+    char ccn_fib_cmd[] = "ccnl_fib";
+    char enddev1_addr[] = "33:35:51:05:37:0b:39:22";
+    char* cmd[4];
+    cmd[0] = ccn_open_cmd; cmd[1] = "3";
+    _ccnl_open(2, cmd);
+    cmd[0] = ccn_open_cmd; cmd[1] = "4";
+    _ccnl_open(2, cmd);
+    cmd[0] = ccn_fib_cmd; cmd[1] = "add"; cmd[2] = "/temperature"; cmd[3] = enddev1_addr;
+    _ccnl_fib(4, cmd);
 
     char line_buf[SHELL_DEFAULT_BUFSIZE];
     shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
