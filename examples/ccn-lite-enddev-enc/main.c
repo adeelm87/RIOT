@@ -53,10 +53,10 @@ int main(void)
     _ccnl_open(2, cmd);
 
 	kernel_pid_t abe_pid = thread_create(abe_stack, sizeof(abe_stack),
-			THREAD_PRIORITY_MAIN - 1, THREAD_CREATE_STACKTEST,
+			THREAD_PRIORITY_MAIN, THREAD_CREATE_STACKTEST,
             abe_thread, NULL, "abe");
 
-    char line_buf[SHELL_DEFAULT_BUFSIZE];
-    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
+//    char line_buf[SHELL_DEFAULT_BUFSIZE];
+//    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
     return 0;
 }
