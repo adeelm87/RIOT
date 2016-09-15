@@ -39,7 +39,7 @@ static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 #define TLSF_BUFFER     ((3*10240) / sizeof(uint32_t))
 static uint32_t _tlsf_heap[TLSF_BUFFER];
 
-char abe_stack[1024*50];
+char abe_stack[1024*35];
 
 int main(void)
 {
