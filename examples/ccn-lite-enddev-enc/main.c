@@ -36,10 +36,10 @@ int _ccnl_open(int argc, char **argv);
 static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
 /* 10kB buffer for the heap should be enough for everyone */
-#define TLSF_BUFFER     ((3*10240) / sizeof(uint32_t))
+#define TLSF_BUFFER     ((15*1024) / sizeof(uint32_t))
 static uint32_t _tlsf_heap[TLSF_BUFFER];
 
-char abe_stack[1024*35];
+char abe_stack[1024*45];
 
 int main(void)
 {
