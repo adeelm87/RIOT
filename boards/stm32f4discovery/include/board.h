@@ -45,7 +45,7 @@ extern "C" {
  */
 #define AT86RF2XX_PARAMS_BOARD      {.spi = SPI_0, \
                                      .spi_speed = SPI_SPEED_5MHZ, \
-                                     .cs_pin = GPIO_PIN(PORT_A, 0), \
+                                     .cs_pin = GPIO_PIN(PORT_C, 4), \
                                      .int_pin = GPIO_PIN(PORT_A, 1), \
                                      .sleep_pin = GPIO_PIN(PORT_D, 8), \
                                      .reset_pin = GPIO_PIN(PORT_D, 9)}

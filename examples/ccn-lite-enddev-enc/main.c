@@ -26,6 +26,7 @@
 #include "ccn-lite-riot.h"
 #include "thread.h"
 #include "abe_relic.h"
+#include "button_listen.h"
 
 
 /* sc_ccnl.c forward declaration */
@@ -35,11 +36,11 @@ int _ccnl_open(int argc, char **argv);
 #define MAIN_QUEUE_SIZE     (8)
 static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
-/* 10kB buffer for the heap should be enough for everyone */
-#define TLSF_BUFFER     ((15*1024) / sizeof(uint32_t))
+#define TLSF_BUFFER     ((1024*15) / sizeof(uint32_t))
 static uint32_t _tlsf_heap[TLSF_BUFFER];
 
 char abe_stack[1024*45];
+char button_stack[1024*5];
 
 int main(void)
 {
@@ -56,7 +57,10 @@ int main(void)
 			THREAD_PRIORITY_MAIN, THREAD_CREATE_STACKTEST,
             abe_thread, NULL, "abe");
 
-//    char line_buf[SHELL_DEFAULT_BUFSIZE];
-//    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
+	kernel_pid_t button = thread_create(button_stack,sizeof(button_stack),
+			THREAD_PRIORITY_MAIN , THREAD_CREATE_STACKTEST,
+			button_listen_thread, NULL, "button_listen");
+    char line_buf[SHELL_DEFAULT_BUFSIZE];
+    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
     return 0;
 }
