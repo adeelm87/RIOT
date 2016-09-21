@@ -56,12 +56,15 @@ int main(void)
     char ccn_open_cmd[] = "ccnl_open";
     char ccn_fib_cmd[] = "ccnl_fib";
     char enddev1_addr[] = "33:35:51:05:37:0b:39:22";
+    char enddev2_addr[] = "33:35:51:04:37:02:39:7e";
     char* cmd[4];
     cmd[0] = ccn_open_cmd; cmd[1] = "3";
     _ccnl_open(2, cmd);
     cmd[0] = ccn_open_cmd; cmd[1] = "4";
     _ccnl_open(2, cmd);
     cmd[0] = ccn_fib_cmd; cmd[1] = "add"; cmd[2] = "/temperature"; cmd[3] = enddev1_addr;
+    _ccnl_fib(4, cmd);
+    cmd[2] = "/heartrate"; cmd[3] = enddev2_addr;
     _ccnl_fib(4, cmd);
 
     char line_buf[SHELL_DEFAULT_BUFSIZE];
