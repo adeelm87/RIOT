@@ -27,7 +27,7 @@
 #include "thread.h"
 #include "abe_relic.h"
 #include "button_listen.h"
-
+#include "board.h"
 
 /* sc_ccnl.c forward declaration */
 int _ccnl_open(int argc, char **argv);
@@ -44,6 +44,7 @@ char button_stack[1024*5];
 
 int main(void)
 {
+	LED3_ON;
     tlsf_create_with_pool(_tlsf_heap, sizeof(_tlsf_heap));
     msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
 
@@ -60,7 +61,8 @@ int main(void)
 	kernel_pid_t button = thread_create(button_stack,sizeof(button_stack),
 			THREAD_PRIORITY_MAIN , THREAD_CREATE_STACKTEST,
 			button_listen_thread, NULL, "button_listen");
-    char line_buf[SHELL_DEFAULT_BUFSIZE];
-    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
+
+//    char line_buf[SHELL_DEFAULT_BUFSIZE];
+//    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
     return 0;
 }
