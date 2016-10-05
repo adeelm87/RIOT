@@ -44,23 +44,23 @@ char button_stack[1024*5];
 
 int main(void)
 {
-	LED3_ON;
+	//LED3_ON;
     tlsf_create_with_pool(_tlsf_heap, sizeof(_tlsf_heap));
     msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
 
     puts("Basic CCN-Lite example");
 
-    ccnl_core_init();
+    /*ccnl_core_init();
     char *cmd[2] = {"ccnl_open", "3"};
-    _ccnl_open(2, cmd);
+    _ccnl_open(2, cmd);*/
 
-	kernel_pid_t abe_pid = thread_create(abe_stack, sizeof(abe_stack),
+	/*kernel_pid_t abe_pid = thread_create(abe_stack, sizeof(abe_stack),
 			THREAD_PRIORITY_MAIN, THREAD_CREATE_STACKTEST,
-            abe_thread, NULL, "abe");
+            abe_thread, NULL, "abe");*/
 
-	kernel_pid_t button = thread_create(button_stack,sizeof(button_stack),
+	/*kernel_pid_t button = thread_create(button_stack,sizeof(button_stack),
 			THREAD_PRIORITY_MAIN , THREAD_CREATE_STACKTEST,
-			button_listen_thread, NULL, "button_listen");
+			button_listen_thread, NULL, "button_listen");*/
 
 //    char line_buf[SHELL_DEFAULT_BUFSIZE];
 //    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
